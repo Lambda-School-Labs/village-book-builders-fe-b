@@ -1,9 +1,10 @@
-import { Button, Form, Layout, Modal, Popover, Select, Typography } from 'antd';
+import { Button, Form, Modal, Popover, Select, Typography } from 'antd';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as CA from '../../../state/actions';
 import { axiosWithAuth } from '../../../utils/axiosWithAuth';
+import { PersonInfo } from './PersonInfo';
 
 const { Option } = Select;
 
@@ -209,7 +210,7 @@ const Signup = ({ CalendarRef, toggleAddModal, showAddModal }) => {
                 {mentor.map(m => (
                   <Option key={m.id} value={m.first_name}>
                     <Popover
-                      content={'teststt'}
+                      content={<PersonInfo info={m} />}
                       title="mentee"
                       trigger="hover"
                       placement="left"
@@ -227,7 +228,14 @@ const Signup = ({ CalendarRef, toggleAddModal, showAddModal }) => {
               <Select name="mentee" onChange={selectMentee}>
                 {mentee.map(s => (
                   <Option key={s.id} value={s.first_name}>
-                    {s.first_name}
+                    <Popover
+                      content={<PersonInfo info={s} />}
+                      title="mentee"
+                      trigger="hover"
+                      placement="left"
+                    >
+                      {s.first_name} {s.last_name}
+                    </Popover>
                   </Option>
                 ))}
               </Select>
